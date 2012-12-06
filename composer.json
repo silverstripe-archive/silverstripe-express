@@ -6,15 +6,10 @@
 		"composer/installers": "*",
 		"silverstripe/cms": ">=3.0",
 		"silverstripe/framework": ">=3.0",
-		"silverstripe-themes/express": "dev-master",
+		"silverstripe-themes/express": "1.1.x",
 		"silverstripe/accessibility": "*",
 		"silverstripe/translatable": "*",
 		"silverstripe/userforms": "*",
 		"silverstripe/versionfeed": "*"
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "1.2.x-dev"
-		}
 	}
 }
