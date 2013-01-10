@@ -15,7 +15,7 @@ class ExpressSiteTree_Controller extends Extension {
 				'themes/module_bootstrap/js/bootstrap-transition.js',
 				'themes/module_bootstrap/js/bootstrap-scrollspy.js',
 				'themes/module_bootstrap/js/bootstrap-collapse.js',
-				'themes/module_bootstrap/js/bootstrap-carousel.js',
+				"$themeDir/js/lib/jquery.flexslider.js",
 				"$themeDir/js/general.js",
 				"$themeDir/js/express.js",
 				"$themeDir/js/forms.js"
