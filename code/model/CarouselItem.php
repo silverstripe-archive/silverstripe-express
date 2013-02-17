@@ -25,6 +25,8 @@ class CarouselItem extends DataObject {
 		$fields = parent::getCMSFields();	
 		$fields->removeByName('Archived');
 
+		$fields->addFieldToTab('Root.Main', new TreeDropdownField('LinkID', 'Link', 'SiteTree'));
+
 		$fields->addFieldToTab('Root.Main', $group = new CompositeField(
 			$label = new LabelField("LabelArchive","Archive this carousel item?"),
 			new CheckboxField('Archived', '')
@@ -35,7 +37,9 @@ class CarouselItem extends DataObject {
 
 		$fields->removeByName('ParentID');
 
-		$fields->insertBefore(			
+
+
+		$fields->insertBefore(
 		$wrap = new CompositeField(
 			$extraLabel = new LabelField('Note', "Note: You will need to create the carousel item before you can add an image")
 		), 'Image');
