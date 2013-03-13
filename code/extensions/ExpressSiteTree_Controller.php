@@ -4,11 +4,12 @@ class ExpressSiteTree_Controller extends Extension {
 	public static $allowed_actions = array();
 
 	function onAfterInit() {
+		$themeDir = SSViewer::get_theme_folder();
+
 		// Add the combined scripts.
 		if (method_exists($this->owner, 'getScriptOverrides')) {
 			$scripts = $this->owner->getScriptOverrides();
 		} else {
-			$themeDir = SSViewer::get_theme_folder();
 			$scripts = array(
 				"$themeDir/js/lib/jquery.js",
 				"$themeDir/js/lib/jquery-ui-1.8.21.custom.js",
@@ -28,7 +29,7 @@ class ExpressSiteTree_Controller extends Extension {
 
 		// Add the combined styles.
 		if (method_exists($this->owner, 'getStyleOverrides')) {
-			$scripts = $this->owner->getStyleOverrides();
+			$styles = $this->owner->getStyleOverrides();
 		} else {
 			$styles = array(
 				"$themeDir/css/layout.css",
