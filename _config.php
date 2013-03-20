@@ -2,9 +2,9 @@
 
 LeftAndMain::require_css('express/css/custom.css');	
 
-Object::add_extension('SiteTree', 'ExpressSiteTree');
-Object::add_extension('ContentController', 'ExpressSiteTree_Controller');
-Object::add_extension('SiteConfig', 'CustomSiteConfig');
+SiteTree::add_extension('ExpressSiteTree');
+ContentController::add_extension('ExpressSiteTree_Controller');
+SiteConfig::add_extension('CustomSiteConfig');
 
 // Don't allow h1 in the editor
 HtmlEditorConfig::get('cms')->setOption('theme_advanced_blockformats', 'p,pre,address,h2,h3,h4,h5,h6');
@@ -23,7 +23,7 @@ if (class_exists('DocumentConverterDecorator')) {
 	DocumentImportIFrameField_Importer::set_docvert_username('ss-express');
 	DocumentImportIFrameField_Importer::set_docvert_password('hLT7pCaJrYVz');
 	DocumentImportIFrameField_Importer::set_docvert_url('http://docvert.silverstripe.com:8888/');
-	Object::add_extension('Page', 'DocumentConverterDecorator');
+	Page::add_extension('DocumentConverterDecorator');
 }
 
 // Default translations
@@ -36,8 +36,8 @@ if (class_exists('Translatable')) {
 		'en_GB' // Needed to be able to create users in the CMS
 	));
 
-	Object::add_extension('SiteTree', 'Translatable');
-	Object::add_extension('SiteConfig', 'Translatable');
+	SiteTree::add_extension('Translatable');
+	SiteConfig::add_extension('Translatable');
 }
 
 i18n::$common_locales['mi_NZ'][0] = 'Māori';
