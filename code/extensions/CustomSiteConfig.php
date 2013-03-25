@@ -4,22 +4,19 @@
  */
 
 class CustomSiteConfig extends DataExtension {
-	function extraStatics($class = null, $extension = null) {
-		return array(
-			'db' => array(
-				'GACode' => 'Varchar(16)',
-				'FacebookURL' => 'Varchar(256)', // multitude of ways to link to Facebook accounts, best to leave it open.
-				'TwitterUsername' => 'Varchar(16)', // max length of Twitter username 15
-				'AddThisProfileID' => 'Varchar(32)',
-				'FooterLogoLink' => 'Varchar(255)',
-				'FooterLogoDescription' => 'Varchar(255)'
-			),
-			'has_one' => array(
-				'Logo' => 'Image',
-				'FooterLogo' => 'Image'
-			)
-		);
-	}
+	static $db = array(
+		'GACode' => 'Varchar(16)',
+		'FacebookURL' => 'Varchar(256)', // multitude of ways to link to Facebook accounts, best to leave it open.
+		'TwitterUsername' => 'Varchar(16)', // max length of Twitter username 15
+		'AddThisProfileID' => 'Varchar(32)',
+		'FooterLogoLink' => 'Varchar(255)',
+		'FooterLogoDescription' => 'Varchar(255)'
+	);
+
+	static $has_one = array(
+		'Logo' => 'Image',
+		'FooterLogo' => 'Image'
+	);
 
 	function updateCMSFields(FieldList $fields) {
 		$fields->addFieldToTab('Root.Main', $gaCode = new TextField('GACode', 'Google Analytics account'));
