@@ -40,5 +40,5 @@ if (class_exists('Translatable')) {
 	SiteConfig::add_extension('Translatable');
 }
 
-i18n::$common_locales['mi_NZ'][0] = 'Māori';
-i18n::$common_languages['mi'][0] = 'Māori';
+Config::inst()->update('i18n','common_locales',array("mi_NZ" => array(0 => 'Māori')));
+Config::inst()->update('i18n','common_languages',array("mi" => array(0 => 'Māori')));
