@@ -10,6 +10,6 @@
 		"silverstripe/accessibility": ">=3.0",
 		"silverstripe/translatable": "*",
 		"silverstripe/userforms": "*",
-		"silverstripe/versionfeed": "*"
+		"silverstripe/versionfeed": ">=3.0"
 	}
 }
