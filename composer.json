@@ -7,9 +7,9 @@
 		"silverstripe/cms": ">=3.0",
 		"silverstripe/framework": ">=3.0",
 		"silverstripe-themes/express": "1.1.x",
-		"silverstripe/accessibility": ">=3.0",
+		"silverstripe/accessibility": "3.0.*@dev",
 		"silverstripe/translatable": "*",
 		"silverstripe/userforms": "*",
-		"silverstripe/versionfeed": ">=3.0"
+		"silverstripe/versionfeed": "3.0.*@dev"
 	}
 }
