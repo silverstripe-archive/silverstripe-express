@@ -8,8 +8,8 @@
 		"silverstripe/framework": ">=3.0",
 		"silverstripe-themes/express": "1.1.x",
 		"silverstripe/accessibility": "3.0.*@dev",
-		"silverstripe/translatable": "*",
-		"silverstripe/userforms": "*",
+		"silverstripe/translatable": "1.0.*@dev",
+		"silverstripe/userforms": "1.0.*@dev",
 		"silverstripe/versionfeed": "3.0.*@dev"
 	}
 }
