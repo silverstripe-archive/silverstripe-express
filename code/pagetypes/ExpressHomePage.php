@@ -1,7 +1,6 @@
 <?php
 class ExpressHomePage extends Page
 {
-
     public static $icon = "themes/express/images/icons/sitetree_images/home.png";
     public $pageIcon =  "images/icons/sitetree_images/home.png";
 
@@ -56,24 +55,26 @@ class ExpressHomePage extends Page
         $fields->addFieldToTab('Root.Features', ToggleCompositeField::create('FeatureOne', _t('SiteTree.FeatureOne', 'Feature One'),
             array(
                 new TextField('FeatureOneTitle', 'Title'),
-                new DropdownField('FeatureOneCategory', 'Category', singleton('ExpressHomePage')->dbObject('FeatureOneCategory')->enumValues(), '', null, 'none'),
+                $dd = new DropdownField('FeatureOneCategory', 'Category', singleton('ExpressHomePage')->dbObject('FeatureOneCategory')->enumValues()),
                 new HTMLEditorField('FeatureOneContent', 'Content'),
                 new TreeDropdownField('FeatureOneLinkID', 'Page to link to', 'SiteTree'),
                 new TextField('FeatureOneButtonText', 'Button text')
                 )
             )->setHeadingLevel(3)
         );
+        $dd->setEmptyString('none');
 
         $fields->addFieldToTab('Root.Features', ToggleCompositeField::create('FeatureTwo', _t('SiteTree.FeatureTwo', 'Feature Two'),
             array(
                 new TextField('FeatureTwoTitle', 'Title'),
-                new DropdownField('FeatureTwoCategory', 'Category', singleton('ExpressHomePage')->dbObject('FeatureTwoCategory')->enumValues(), '', null, 'none'),
+                $dd = new DropdownField('FeatureTwoCategory', 'Category', singleton('ExpressHomePage')->dbObject('FeatureTwoCategory')->enumValues()),
                 new HTMLEditorField('FeatureTwoContent', 'Content'),
                 new TreeDropdownField('FeatureTwoLinkID', 'Page to link to', 'SiteTree'),
                 new TextField('FeatureTwoButtonText', 'Button text')
                 )
             )->setHeadingLevel(3)
         );
+        $dd->setEmptyString('none');
 
         return $fields;
     }
@@ -86,7 +87,6 @@ class ExpressHomePage extends Page
 
 class ExpressHomePage_Controller extends Page_Controller
 {
-
     /**
      * @param int $amount The amount of items to provide.
      */
