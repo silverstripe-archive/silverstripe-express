@@ -66,7 +66,7 @@ class ExpressHomePage extends Page {
 		$fields->addFieldToTab('Root.Features',ToggleCompositeField::create('FeatureTwo', _t('SiteTree.FeatureTwo', 'Feature Two'),
 			array(
 				new TextField('FeatureTwoTitle', 'Title'),
-				new DropdownField('FeatureTwoCategory', 'Category', singleton('ExpressHomePage')->dbObject('FeatureTwoCategory')->enumValues()),
+				$dd = new DropdownField('FeatureTwoCategory', 'Category', singleton('ExpressHomePage')->dbObject('FeatureTwoCategory')->enumValues()),
 				new HTMLEditorField('FeatureTwoContent', 'Content'),
 				new TreeDropdownField('FeatureTwoLinkID', 'Page to link to', 'SiteTree'),
 				new TextField('FeatureTwoButtonText', 'Button text')
