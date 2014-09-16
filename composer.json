@@ -4,8 +4,7 @@
 	"type": "silverstripe-module",
 	"require": {
 		"composer/installers": "*",
-		"silverstripe/cms": "~3.6",
-		"silverstripe/framework": "~3.6",
+        	"silverstripe/cms": ">=3.0.1,<3.6",
 		"silverstripe/accessibility": "*",
 		"silverstripe/iframe": "*",
 		"silverstripe/translatable": "*",
