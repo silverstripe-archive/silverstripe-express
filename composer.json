@@ -1,23 +1,16 @@
 {
-	"name": "silverstripe/express",
-	"description": "The SilverStripe Express module",
+	"name": "gdmedia/gdm-express",
+	"description": "The SilverStripe Express module - guru version",
 	"type": "silverstripe-module",
 	"require": {
 		"composer/installers": "*",
-		"silverstripe/cms": "~3.1",
-		"silverstripe/framework": "~3.1",
-		"silverstripe-themes/express": "dev-master",
+		"silverstripe/cms": "~3.6",
+		"silverstripe/framework": "~3.6",
 		"silverstripe/accessibility": "*",
 		"silverstripe/iframe": "*",
-		"silverstripe/testdata": "*",
 		"silverstripe/translatable": "*",
 		"silverstripe/userforms": "*",
 		"silverstripe/versionedfiles": "*",
 		"silverstripe/versionfeed": "*"
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "1.2.x-dev"
-		}
 	}
 }
