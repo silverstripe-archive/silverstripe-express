@@ -1,5 +1,5 @@
 {
-	"name": "gdmedia/gdm-express",
+	"name": "gdmedia/silverstripe-gdm-express",
 	"description": "The SilverStripe Express module - guru version",
 	"type": "silverstripe-module",
 	"require": {
@@ -12,5 +12,8 @@
 		"silverstripe/userforms": "*",
 		"silverstripe/versionedfiles": "*",
 		"silverstripe/versionfeed": "*"
-	}
+	},
+	 "extra": {
+	    "installer-name": "silverstripe-gdm-express"
+	  }
 }
