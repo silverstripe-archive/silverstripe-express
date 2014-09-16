@@ -1,8 +1,7 @@
 <?php
 class ExpressHomePage extends Page {
 
-	static $icon = "themes/express/images/icons/sitetree_images/home.png";
-	public $pageIcon =  "images/icons/sitetree_images/home.png";
+	static $icon = "gdm-ss-express/assests/images/sitetree_images/home.png";
 
 	static $db = array(
 		'FeatureOneTitle' => 'Varchar(255)',

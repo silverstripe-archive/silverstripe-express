@@ -3,8 +3,8 @@
 class NewsHolder extends Page {
 	static $allowed_children = array('NewsPage');
 	static $default_child = 'NewsPage';
-	static $icon = "themes/express/images/icons/sitetree_images/news_listing.png";
-	public $pageIcon =  "images/icons/sitetree_images/news_listing.png";
+	static $icon = "gdm-ss-express/assests/images/sitetree_images/news_listing.png";
+	public $pageIcon =  "gdm-ss-express/assests/images/sitetree_images/news_listing.png";
 
 	public function MenuChildren() {
 		return parent::MenuChildren()->exclude('ClassName', 'NewsPage');

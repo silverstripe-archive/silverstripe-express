@@ -3,8 +3,7 @@
 class NewsPage extends Page {
 	static $default_parent = 'NewsHolderPage';
 	static $can_be_root = false;
-	static $icon = "themes/express/images/icons/sitetree_images/news.png";
-	public $pageIcon =  "images/icons/sitetree_images/news.png";
+	static $icon = "gdm-ss-express/assests/images/sitetree_images/news.png";
 
 	static $db = array(
 		'Date' => 'SS_Datetime',
@@ -45,5 +44,5 @@ class NewsPage extends Page {
 }
 
 class NewsPage_Controller extends Page_Controller {
-	
+
 }
