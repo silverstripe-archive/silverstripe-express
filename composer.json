@@ -9,7 +9,6 @@
         "silverstripe/iframe": "*",
         "silverstripe/translatable": "*",
         "silverstripe/versionedfiles": "*",
-        "silverstripe/versionfeed": "*",
         "silverstripe/userforms": "*",
         "unclecheese/betterbuttons": "1.2.*",
         "zirak/widget-pages-extension": "*",
