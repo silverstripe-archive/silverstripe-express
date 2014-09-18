@@ -20,25 +20,27 @@ FulltextSearchable::enable();
 
 // Configure document converter.
 if (class_exists('DocumentConverterDecorator')) {
-	DocumentImportIFrameField_Importer::set_docvert_username('ss-express');
-	DocumentImportIFrameField_Importer::set_docvert_password('hLT7pCaJrYVz');
-	DocumentImportIFrameField_Importer::set_docvert_url('http://docvert.silverstripe.com:8888/');
-	Page::add_extension('DocumentConverterDecorator');
+    DocumentImportIFrameField_Importer::set_docvert_username('ss-express');
+    DocumentImportIFrameField_Importer::set_docvert_password('hLT7pCaJrYVz');
+    DocumentImportIFrameField_Importer::set_docvert_url('http://docvert.silverstripe.com:8888/');
+    Page::add_extension('DocumentConverterDecorator');
 }
 
 // Default translations
 if (class_exists('Translatable')) {
-	Translatable::set_default_locale('en_NZ');
-	Translatable::set_allowed_locales(array(
-		'en_NZ', // NZ English
-		'mi_NZ', // Maori
-		'zh_cmn', // Chinese (Mandarin)
-		'en_GB' // Needed to be able to create users in the CMS
-	));
+    Translatable::set_default_locale('en_NZ');
+    Translatable::set_allowed_locales(array(
+        'en_NZ', // NZ English
+        'mi_NZ', // Maori
+        'zh_cmn', // Chinese (Mandarin)
+        'en_GB' // Needed to be able to create users in the CMS
+    ));
 
-	SiteTree::add_extension('Translatable');
-	SiteConfig::add_extension('Translatable');
+    SiteTree::add_extension('Translatable');
+    SiteConfig::add_extension('Translatable');
 }
 
-Config::inst()->update('i18n','common_locales',array("mi_NZ" => array(0 => 'Māori')));
-Config::inst()->update('i18n','common_languages',array("mi" => array(0 => 'Māori')));
+Config::inst()->update('i18n', 'common_locales', array("mi_NZ" => array(0 => 'Māori')));
+Config::inst()->update('i18n', 'common_languages', array("mi" => array(0 => 'Māori')));
+
+Page::add_extension('PageUtilities');
