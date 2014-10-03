@@ -21,7 +21,13 @@
         "gdmedia/silverstripe-widget-links": "dev-master",
         "gdmedia/silverstripe-widget-htmlcontent": "dev-master",
         "gdmedia/silverstripe-widget-downloads": "dev-master",
-        "gdmedia/silverstripe-testimonials": "dev-master"
+        "gdmedia/silverstripe-testimonials": "dev-master",
+        "silverstripe/testdata": "*",
+        "gdmedia-ss-themes/gurutemplate": "*",
+        "gdmedia/silverstripe-gdm-express": "dev-master",
+        "gdmedia/silverstripe-video-embed": "dev-master",
+        "andrewhoule/silverstripe-photogallery": "dev-master",
+        "silverstripe/blog": "dev-master"
     },
     "extra": {
         "installer-name": "silverstripe-gdm-express"
