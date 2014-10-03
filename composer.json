@@ -11,7 +11,7 @@
         "silverstripe/versionedfiles": "*",
         "silverstripe/userforms": "*",
         "unclecheese/betterbuttons": "1.2.*",
-        "zirak/widget-pages-extension": "*"
+        "zirak/widget-pages-extension": "*",
         "unclecheese/eventcalendar": "dev-master",
         "silverstripe/newsletter": "dev-master",
         "gdmedia/silverstripe-frontend-admin": "*",
