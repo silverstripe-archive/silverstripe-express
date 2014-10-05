@@ -21,7 +21,6 @@
         "gdmedia/silverstripe-widget-htmlcontent": "dev-master",
         "gdmedia/silverstripe-widget-downloads": "dev-master",
         "gdmedia/silverstripe-testimonials": "dev-master",
-        "silverstripe/testdata": "*",
         "gdmedia/silverstripe-video-embed": "dev-master",
         "andrewhoule/silverstripe-photogallery": "dev-master",
         "silverstripe/blog": "dev-master"
