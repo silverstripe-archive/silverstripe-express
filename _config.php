@@ -45,7 +45,3 @@ Config::inst()->update('i18n', 'common_languages', array("mi" => array(0 => 'Mā
 
 Page::add_extension('PageUtilities');
 
-// log errors and warnings
-SS_Log::add_writer(new SS_LogFileWriter('err_log.txt'), SS_Log::ERR);
-
-Director::set_environment_type('dev');
