@@ -13,8 +13,6 @@ class CustomSiteConfig extends DataExtension {
         'FooterLogoLink'        => 'Varchar(255)',
         'FooterLogoDescription' => 'Varchar(255)',
         'Copyright'             => 'Varchar(255)',
-        'WebDesignerName'       => 'Varchar(255)',
-        'WebDesignerLink'       => 'Varchar(255)'
     );
     static $has_one   = array(
         'Logo'       => 'Image',
@@ -29,8 +27,8 @@ class CustomSiteConfig extends DataExtension {
         $fields->addFieldToTab('Root.Main', $gaCode    = new TextField('GACode', 'Google Analytics account'));
         $gaCode->setRightTitle('Account number to be used all across the site (in the format <strong>UA-XXXXX-X</strong>)');
         $fields->addFieldToTab('Root.Main', $logoField = new UploadField('Logo', 'Logo, to appear in the top left.'));
-        $logoField->getValidator()->setAllowedExtensions(array
-            ('jpg', 'jpeg', 'png', 'gif'));
+        /* @var $logoField UploadField */
+        $logoField->setAllowedFileCategories('image');
         $logoField->setConfig('allowedMaxFileNumber', 1);
 
         // Social Media
@@ -43,16 +41,13 @@ class CustomSiteConfig extends DataExtension {
 
         //Footer
         $fields->addFieldToTab('Root.Footer', $footerLogoField = new UploadField('FooterLogo', 'Footer logo, to appear in the bottom right.'));
-        $footerLogoField->getValidator()->setAllowedExtensions(array('jpg', 'jpeg', 'png', 'gif'));
+        $footerLogoField->setAllowedFileCategories('image');
         $footerLogoField->setConfig('allowedMaxFileNumber', 1);
         $fields->addFieldToTab('Root.Footer', $footerLink      = new TextField('FooterLogoLink', 'Footer Logo link'));
         $footerLink->setRightTitle('Please include the protocol (ie, http:// or https://) unless it is an internal link.');
         $fields->addFieldToTab('Root.Footer', new TextField('FooterLogoDescription', 'Footer Logo description'));
         $fields->addFieldToTab('Root.Footer', new TreeMultiselectField('FooterLinks', 'Footer Links', 'SiteTree'));
         $fields->addFieldToTab('Root.Footer', new TextField('Copyright', 'Copyright'));
-        $fields->addFieldToTab('Root.Footer', new TextField('WebDesignerName', 'Web Designer name'));
-        $fields->addFieldToTab('Root.Footer', $webDesignerLink = new TextField('WebDesignerLink', 'Web Designer link'));
-        $webDesignerLink->setRightTitle('Please include the protocol (ie, http:// or https://).');
     }
 
 }
