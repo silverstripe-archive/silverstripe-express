@@ -99,7 +99,10 @@ class ExpressSiteTree_Controller extends Extension {
                 // Fake some content for the files.
                 $result->ContextualContent = "A file named \"$result->Name\" ($result->Size).";
             } else {
-                $result->ContextualContent = $result->obj('Content')->ContextSummary(300, $query);
+                // /(.?)\[embed(.*?)\](.+?)\[\/\s*embed\s*\](.?)/gi
+                $valueField                = $result->obj('Content');
+                $valueField->setValue(ShortcodeParser::get_active()->parse($valueField->getValue()));
+                $result->ContextualContent = $valueField->ContextSummary(300, $query);
             }
         }
 
