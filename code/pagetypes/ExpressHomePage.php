@@ -106,5 +106,4 @@ class ExpressHomePage_Controller extends Page_Controller {
         return DataObject::get_one("NewsHolder");
     }
 
-
 }
