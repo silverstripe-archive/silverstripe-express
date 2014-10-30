@@ -6,35 +6,51 @@ class ExpressSiteTree_Controller extends Extension {
 
     function onAfterInit() {
         $themeDir = SSViewer::get_theme_folder();
+        $scripts  = array();
+        $styles   = array();
 
-        // Add the combined scripts.
+// Add the combined scripts.
         if (method_exists($this->owner, 'getScriptOverrides')) {
             $scripts = $this->owner->getScriptOverrides();
         } else {
-            $scripts = array(
+            if (method_exists($this->owner, 'getScriptIncludes')) {
+                $scripts = $this->owner->getScriptIncludes();
+            }
+            $scripts = array_unique(array_merge($scripts, array(
                 THIRDPARTY_DIR . '/jquery/jquery.js',
                 $themeDir . '/javascript/bootstrap.js',
                 $themeDir . '/javascript/main.js'
-            );
-            if (method_exists($this->owner, 'getScriptIncludes')) {
-                $scripts = array_merge($scripts, $this->owner->getScriptIncludes());
+            )));
+        }
+        if (Director::isDev()) {
+            Requirements::combine_files('scripts.js', $scripts);
+        } else {
+            foreach ($scripts as $script) {
+                Requirements::javascript($script);
             }
         }
-        Requirements::combine_files('scripts.js', $scripts);
+
 
         // Add the combined styles.
         if (method_exists($this->owner, 'getStyleOverrides')) {
             $styles = $this->owner->getStyleOverrides();
         } else {
-            $styles = array(
-                "$themeDir/css/layout.css",
-                "$themeDir/css/typography.css"
-            );
             if (method_exists($this->owner, 'getStyleIncludes')) {
                 $styles = array_merge($styles, $this->owner->getStyleIncludes());
             }
+            $styles = array_unique(array_merge($styles, array(
+                "$themeDir/css/layout.css",
+                "$themeDir/css/typography.css"
+            )));
         }
-        Requirements::combine_files('styles.css', $styles);
+
+        if (Director::isDev()) {
+            Requirements::combine_files('styles.css', $styles);
+        } else {
+            foreach ($styles as $style) {
+                Requirements::css($style);
+            }
+        }
 
         // Print styles
         if (method_exists($this->owner, 'getPrintStyleOverrides')) {
@@ -50,7 +66,7 @@ class ExpressSiteTree_Controller extends Extension {
         }
 
         // Extra folder to keep the relative paths consistent when combining.
-        Requirements::set_combined_files_folder(ASSETS_DIR . '/_compiled/p');
+        Requirements::set_combined_files_folder($themeDir . '/combinedfiles');
     }
 
     /* 	Give external links the external class, and affix size and type
