@@ -5,29 +5,31 @@ class ExpressSiteTree_Controller extends Extension {
     public static $allowed_actions = array();
 
     function onAfterInit() {
-        $themeDir = SSViewer::get_theme_folder();
-        $scripts  = array();
-        $styles   = array();
+        $themeDir  = SSViewer::get_theme_folder();
+        $scripts   = array();
+        $styles    = array();
+        $minSuffix = (Director::isDev()) ? "" : ".min";
 
-// Add the combined scripts.
+        // Add the combined scripts.
         if (method_exists($this->owner, 'getScriptOverrides')) {
             $scripts = $this->owner->getScriptOverrides();
         } else {
             if (method_exists($this->owner, 'getScriptIncludes')) {
                 $scripts = $this->owner->getScriptIncludes();
             }
+
             $scripts = array_unique(array_merge($scripts, array(
-                THIRDPARTY_DIR . '/jquery/jquery.js',
-                $themeDir . '/javascript/bootstrap.js',
-                $themeDir . '/javascript/main.js'
+                THIRDPARTY_DIR . '/jquery/jquery' . $minSuffix . '.js',
+                $themeDir . '/javascript/bootstrap/bootstrap' . $minSuffix . '.js',
+                $themeDir . '/javascript/main' . $minSuffix . '.js'
             )));
         }
         if (Director::isDev()) {
-            Requirements::combine_files('scripts.js', $scripts);
-        } else {
             foreach ($scripts as $script) {
                 Requirements::javascript($script);
             }
+        } else {
+            Requirements::combine_files('scripts.js', $scripts);
         }
 
 
@@ -45,11 +47,11 @@ class ExpressSiteTree_Controller extends Extension {
         }
 
         if (Director::isDev()) {
-            Requirements::combine_files('styles.css', $styles);
-        } else {
             foreach ($styles as $style) {
                 Requirements::css($style);
             }
+        } else {
+            Requirements::combine_files('styles.css', $styles);
         }
 
         // Print styles
