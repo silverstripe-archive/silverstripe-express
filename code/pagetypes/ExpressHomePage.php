@@ -12,7 +12,8 @@ class ExpressHomePage extends Page {
         'FeatureTwoTitle'      => 'Varchar(255)',
         'FeatureTwoCategory'   => "Enum('comments, group, news', 'group')",
         'FeatureTwoContent'    => 'HTMLText',
-        'FeatureTwoButtonText' => 'Varchar(255)'
+        'FeatureTwoButtonText' => 'Varchar(255)',
+        'LearnMoreButtonText'  => 'Varchar(255)'
     );
     static $has_one  = array(
         'LearnMorePage'  => 'SiteTree',
@@ -27,14 +28,15 @@ class ExpressHomePage extends Page {
     function getCMSFields() {
         $fields    = parent::getCMSFields();
         // Main Content tab
-        $fields->addFieldToTab('Root.Main', new TreeDropdownField('LearnMorePageID', 'Page to link the "Learn More" button to:', 'SiteTree'), 'Metadata');
         // Carousel tab
         $gridField = new GridField(
-                'CarouselItems', 'Carousel', $this->CarouselItems()->sort('Archived'), GridFieldConfig_RelationEditor::create());
+                'CarouselItems', 'Carousel', $this->CarouselItems()->sort('Archived'), GridFieldConfig_RelationEditor::create()
+        );
         $gridField->setModelClass('CarouselItem');
         $fields->addFieldToTab('Root.Carousel', $gridField);
         // Links
-        $fields->addFieldToTab('Root.Links', new TreeDropdownField('LearnMorePageID', '"Learn More" page', 'SiteTree'));
+        $fields->addFieldToTab('Root.Links', new TreeDropdownField('LearnMorePageID', 'Page to link the "Learn More" button to:', 'SiteTree'));
+        $fields->addFieldToTab('Root.Links', new TextField('LearnMoreButtonText', 'Text to display on the "Learn More" button:', 'SiteTree'));
 
         $gridField = new GridField(
                 'Quicklinks', 'Quicklinks', $this->Quicklinks(), GridFieldConfig_RelationEditor::create());
