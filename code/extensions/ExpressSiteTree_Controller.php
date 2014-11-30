@@ -5,70 +5,70 @@ class ExpressSiteTree_Controller extends Extension {
     public static $allowed_actions = array();
 
     function onAfterInit() {
-        $themeDir  = SSViewer::get_theme_folder();
-        $scripts   = array();
-        $styles    = array();
-        $minSuffix = (Director::isDev()) ? "" : ".min";
-
-        // Add the combined scripts.
-        if (method_exists($this->owner, 'getScriptOverrides')) {
-            $scripts = $this->owner->getScriptOverrides();
-        } else {
-            if (method_exists($this->owner, 'getScriptIncludes')) {
-                $scripts = $this->owner->getScriptIncludes();
-            }
-
-            $scripts = array_unique(array_merge($scripts, array(
-                THIRDPARTY_DIR . '/jquery/jquery' . $minSuffix . '.js',
-                $themeDir . '/javascript/bootstrap/bootstrap' . $minSuffix . '.js',
-                $themeDir . '/javascript/main' . $minSuffix . '.js'
-            )));
-        }
-        if (Director::isDev()) {
-            foreach ($scripts as $script) {
-                Requirements::javascript($script);
-            }
-        } else {
-            Requirements::combine_files('scripts.js', $scripts);
-        }
-
-
-        // Add the combined styles.
-        if (method_exists($this->owner, 'getStyleOverrides')) {
-            $styles = $this->owner->getStyleOverrides();
-        } else {
-            if (method_exists($this->owner, 'getStyleIncludes')) {
-                $styles = array_merge($styles, $this->owner->getStyleIncludes());
-            }
-            $styles = array_unique(array_merge($styles, array(
-                "$themeDir/css/layout.css",
-                "$themeDir/css/typography.css"
-            )));
-        }
-
-        if (Director::isDev()) {
-            foreach ($styles as $style) {
-                Requirements::css($style);
-            }
-        } else {
-            Requirements::combine_files('styles.css', $styles);
-        }
-
-        // Print styles
-        if (method_exists($this->owner, 'getPrintStyleOverrides')) {
-            $printStyles = $this->owner->getPrintStyleOverrides();
-        } else {
-            $printStyles = array("$themeDir/css/print.css");
-            if (method_exists($this->owner, 'getPrintStyleIncludes')) {
-                $printStyles = array_merge($printStyles, $this->owner->getPrintStyleIncludes());
-            }
-        }
-        foreach ($printStyles as $printStyle) {
-            Requirements::css($printStyle, 'print');
-        }
-
-        // Extra folder to keep the relative paths consistent when combining.
-        Requirements::set_combined_files_folder($themeDir . '/combinedfiles');
+//        $themeDir  = SSViewer::get_theme_folder();
+//        $scripts   = array();
+//        $styles    = array();
+//        $minSuffix = (Director::isDev()) ? "" : ".min";
+//
+//        // Add the combined scripts.
+//        if (method_exists($this->owner, 'getScriptOverrides')) {
+//            $scripts = $this->owner->getScriptOverrides();
+//        } else {
+//            if (method_exists($this->owner, 'getScriptIncludes')) {
+//                $scripts = $this->owner->getScriptIncludes();
+//            }
+//
+//            $scripts = array_unique(array_merge($scripts, array(
+//                THIRDPARTY_DIR . '/jquery/jquery' . $minSuffix . '.js',
+//                $themeDir . '/javascript/bootstrap/bootstrap' . $minSuffix . '.js',
+//                $themeDir . '/javascript/main' . $minSuffix . '.js'
+//            )));
+//        }
+//        if (Director::isDev()) {
+//            foreach ($scripts as $script) {
+//                Requirements::javascript($script);
+//            }
+//        } else {
+//            Requirements::combine_files('scripts.js', $scripts);
+//        }
+//
+//
+//        // Add the combined styles.
+//        if (method_exists($this->owner, 'getStyleOverrides')) {
+//            $styles = $this->owner->getStyleOverrides();
+//        } else {
+//            if (method_exists($this->owner, 'getStyleIncludes')) {
+//                $styles = array_merge($styles, $this->owner->getStyleIncludes());
+//            }
+//            $styles = array_unique(array_merge($styles, array(
+//                "$themeDir/css/layout.css",
+//                "$themeDir/css/typography.css"
+//            )));
+//        }
+//
+//        if (Director::isDev()) {
+//            foreach ($styles as $style) {
+//                Requirements::css($style);
+//            }
+//        } else {
+//            Requirements::combine_files('styles.css', $styles);
+//        }
+//
+//        // Print styles
+//        if (method_exists($this->owner, 'getPrintStyleOverrides')) {
+//            $printStyles = $this->owner->getPrintStyleOverrides();
+//        } else {
+//            $printStyles = array("$themeDir/css/print.css");
+//            if (method_exists($this->owner, 'getPrintStyleIncludes')) {
+//                $printStyles = array_merge($printStyles, $this->owner->getPrintStyleIncludes());
+//            }
+//        }
+//        foreach ($printStyles as $printStyle) {
+//            Requirements::css($printStyle, 'print');
+//        }
+//
+//        // Extra folder to keep the relative paths consistent when combining.
+//        Requirements::set_combined_files_folder($themeDir . '/combinedfiles');
     }
 
     /* 	Give external links the external class, and affix size and type

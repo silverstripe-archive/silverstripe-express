@@ -24,7 +24,8 @@
         "gdmedia/silverstripe-video-embed": "dev-master",
         "andrewhoule/silverstripe-photogallery": "dev-master",
         "gdmedia/silverstripe-socialnetwork-links": "dev-master",
-        "silverstripe/blog": "dev-master"
+        "silverstripe/blog": "dev-master",
+        "silverstripe/comments": "*"
     },
     "extra": {
         "installer-name": "silverstripe-gdm-express"
