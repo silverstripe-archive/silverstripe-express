@@ -5,80 +5,62 @@ class ExpressSiteTree_Controller extends Extension {
     public static $allowed_actions = array();
 
     function onAfterInit() {
-//        $themeDir  = SSViewer::get_theme_folder();
-//        $scripts   = array();
-//        $styles    = array();
-//        $minSuffix = (Director::isDev()) ? "" : ".min";
-//
-//        // Add the combined scripts.
-//        if (method_exists($this->owner, 'getScriptOverrides')) {
-//            $scripts = $this->owner->getScriptOverrides();
-//        } else {
-//            if (method_exists($this->owner, 'getScriptIncludes')) {
-//                $scripts = $this->owner->getScriptIncludes();
-//            }
-//
-//            $scripts = array_unique(array_merge($scripts, array(
-//                THIRDPARTY_DIR . '/jquery/jquery' . $minSuffix . '.js',
-//                $themeDir . '/javascript/bootstrap/bootstrap' . $minSuffix . '.js',
-//                $themeDir . '/javascript/main' . $minSuffix . '.js'
-//            )));
-//        }
-//        if (Director::isDev()) {
-//            foreach ($scripts as $script) {
-//                Requirements::javascript($script);
-//            }
-//        } else {
-//            Requirements::combine_files('scripts.js', $scripts);
-//        }
-//
-//
-//        // Add the combined styles.
-//        if (method_exists($this->owner, 'getStyleOverrides')) {
-//            $styles = $this->owner->getStyleOverrides();
-//        } else {
-//            if (method_exists($this->owner, 'getStyleIncludes')) {
-//                $styles = array_merge($styles, $this->owner->getStyleIncludes());
-//            }
-//            $styles = array_unique(array_merge($styles, array(
-//                "$themeDir/css/layout.css",
-//                "$themeDir/css/typography.css"
-//            )));
-//        }
-//
-//        if (Director::isDev()) {
-//            foreach ($styles as $style) {
-//                Requirements::css($style);
-//            }
-//        } else {
-//            Requirements::combine_files('styles.css', $styles);
-//        }
-//
-//        // Print styles
-//        if (method_exists($this->owner, 'getPrintStyleOverrides')) {
-//            $printStyles = $this->owner->getPrintStyleOverrides();
-//        } else {
-//            $printStyles = array("$themeDir/css/print.css");
-//            if (method_exists($this->owner, 'getPrintStyleIncludes')) {
-//                $printStyles = array_merge($printStyles, $this->owner->getPrintStyleIncludes());
-//            }
-//        }
-//        foreach ($printStyles as $printStyle) {
-//            Requirements::css($printStyle, 'print');
-//        }
-//
-//        // Extra folder to keep the relative paths consistent when combining.
-//        Requirements::set_combined_files_folder($themeDir . '/combinedfiles');
+        $themeDir    = SSViewer::get_theme_folder();
+        $scripts     = array();
+        $styles      = array();
+        $printStyles = array();
+
+        // Add the combined scripts.
+        if (method_exists($this->owner, 'getScriptOverrides')) {
+            $scripts = $this->owner->getScriptOverrides();
+        } else if (method_exists($this->owner, 'getScriptIncludes')) {
+            $scripts = array_unique(array_merge($scripts, $this->owner->getScriptIncludes()));
+        }
+
+        // Add the combined styles.
+        if (method_exists($this->owner, 'getStyleOverrides')) {
+            $styles = $this->owner->getStyleOverrides();
+        } else if (method_exists($this->owner, 'getStyleIncludes')) {
+            $styles = array_unique(array_merge($styles, $this->owner->getStyleIncludes()));
+        }
+
+        // Print styles
+        if (method_exists($this->owner, 'getPrintStyleOverrides')) {
+            $printStyles = $this->owner->getPrintStyleOverrides();
+        } else if (method_exists($this->owner, 'getPrintStyleIncludes')) {
+            $printStyles = array_unique(array_merge($printStyles, $this->owner->getPrintStyleIncludes()));
+        }
+
+        if (Director::isDev()) {
+            foreach ($scripts as $script) {
+                Requirements::javascript($script);
+            }
+            foreach ($styles as $style) {
+                Requirements::css($style);
+            }
+            foreach ($styles as $printStyle) {
+                Requirements::css($printStyle, 'print');
+            }
+        } else {
+            Requirements::combine_files('scripts.js', $scripts);
+            Requirements::combine_files('styles.css', $styles);
+            Requirements::combine_files('print.css', $printStyles, 'print');
+        }
+
+        // Extra folder to keep the relative paths consistent when combining.
+        Requirements::set_combined_files_folder($themeDir . '/combinedfiles');
     }
 
-    /* 	Give external links the external class, and affix size and type
-      prefixes to files.
+    /**
+     * Give external links the external class, and affix size and type prefixes to files.
+     *
+     * @return String
      */
-
     function Content() {
         $content = $this->owner->Content;
 
         // Internal links.
+        $matches = array();
         preg_match_all('/<a.*href="\[file_link,id=([0-9]+)\].*".*>.*<\/a>/U', $content, $matches);
 
         for ($i = 0; $i < count($matches[0]); $i++) {
@@ -94,16 +76,20 @@ class ExpressSiteTree_Controller extends Extension {
         // and now external links
         $pattern     = '/<a href=\"(h[^\"]*)\">(.*)<\/a>/iU';
         $replacement = '<a href="$1" class="external">$2</a>';
-        $content     = preg_replace($pattern, $replacement, $content, -1);
-
-        return $content;
+        $result      = preg_replace($pattern, $replacement, $content, -1);
+        return $result;
     }
 
     /**
      * Overrides the ContentControllerSearchExtension and adds snippets to results.
+     *
+     * @param array $data
+     * @param SearchForm $form
+     * @param SS_HTTPRequest $request
+     * @return HTMLText
      */
     function results($data, $form, $request) {
-
+        $result  = null;
         $results = $form->getResults();
         $query   = $form->getSearchQuery();
 
@@ -139,7 +125,7 @@ class ExpressSiteTree_Controller extends Extension {
             // Add RSS feed to normal search.
             RSSFeed::linkToFeed($rssLink, "Search results for query \"$query\".");
 
-            return $this->owner->customise($context)->renderWith(array('Page_results', 'Page'));
+            $result = $this->owner->customise($context)->renderWith(array('Page_results', 'Page'));
         } else {
             // De-paginate and reorder. Sort-by-relevancy doesn't make sense in RSS context.
             $fullList = $results->getList()->sort('LastEdited', 'DESC');
@@ -154,9 +140,33 @@ class ExpressSiteTree_Controller extends Extension {
             }
 
             // Generate the feed content.
-            $rss = new RSSFeed($fullList, $this->owner->request->getURL(), $title, $siteTagline, "Title", "ContextualContent", null);
+            $rss    = new RSSFeed($fullList, $this->owner->request->getURL(), $title, $siteTagline, "Title", "ContextualContent", null);
             $rss->setTemplate('Page_results_rss');
-            return $rss->outputToBrowser();
+            $result = $rss->outputToBrowser();
+        }
+        return $result;
+    }
+
+    public function themedJavascript($name, $module = null) {
+        $theme      = SSViewer::get_theme_folder();
+        $project    = project();
+        $absbase    = BASE_PATH . DIRECTORY_SEPARATOR;
+        $abstheme   = $absbase . $theme;
+        $absproject = $absbase . $project;
+        $scripts    = array("/javascript/$name.js", "/js/$name.js");
+        if (Director::isDev()) {
+            $scripts = array_merge(array("/javascript/$name.min.js", "/js/$name.min.js"), $scripts);
+        }
+        foreach ($scripts as $script) {
+            if (file_exists($absproject . $script)) {
+                Requirements::javascript($project . $script);
+            } elseif ($module && file_exists($abstheme . '_' . $module . $script)) {
+                Requirements::javascript($theme . '_' . $module . $script);
+            } elseif (file_exists($abstheme . $script)) {
+                Requirements::javascript($theme . $script);
+            } elseif ($module) {
+                Requirements::javascript($module . $script);
+            }
         }
     }
 
