@@ -160,12 +160,16 @@ class ExpressSiteTree_Controller extends Extension {
         foreach ($scripts as $script) {
             if (file_exists($absproject . $script)) {
                 Requirements::javascript($project . $script);
+                break;
             } elseif ($module && file_exists($abstheme . '_' . $module . $script)) {
                 Requirements::javascript($theme . '_' . $module . $script);
+                break;
             } elseif (file_exists($abstheme . $script)) {
                 Requirements::javascript($theme . $script);
+                break;
             } elseif ($module) {
                 Requirements::javascript($module . $script);
+                break;
             }
         }
     }
