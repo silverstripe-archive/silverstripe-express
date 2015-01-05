@@ -29,19 +29,21 @@ class ExpressHomePage extends Page {
         $fields    = parent::getCMSFields();
         // Main Content tab
         // Carousel tab
-        $gridField = new GridField(
+        $carouselItemsGrid = new GridField(
                 'CarouselItems', 'Carousel', $this->CarouselItems()->sort('Archived'), GridFieldConfig_RelationEditor::create()
         );
-        $gridField->setModelClass('CarouselItem');
-        $fields->addFieldToTab('Root.Carousel', $gridField);
+        $carouselItemsGrid->setModelClass('CarouselItem');
+        $fields->addFieldToTab('Root.Carousel', $carouselItemsGrid);
         // Links
         $fields->addFieldToTab('Root.Links', new TreeDropdownField('LearnMorePageID', 'Page to link the "Learn More" button to:', 'SiteTree'));
         $fields->addFieldToTab('Root.Links', new TextField('LearnMoreButtonText', 'Text to display on the "Learn More" button:', 'SiteTree'));
 
-        $gridField = new GridField(
+        $quickLinksGrid = new GridField(
                 'Quicklinks', 'Quicklinks', $this->Quicklinks(), GridFieldConfig_RelationEditor::create());
-        $gridField->setModelClass('Quicklink');
-        $fields->addFieldToTab('Root.Links', FieldGroup::create($gridField)->setTitle('Quick Links'));
+        $quickLinksGrid->setModelClass('Quicklink');
+        $quickLinksFieldGroup = FieldGroup::create($quickLinksGrid)->setTitle('Quick Links');
+        $quickLinksFieldGroup->setName("QuicklinkGroup");
+        $fields->addFieldToTab('Root.Links', $quickLinksFieldGroup);
 
         $fields->removeByName('Translations');
         $fields->removeByName('Import');
