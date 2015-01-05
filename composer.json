@@ -25,7 +25,10 @@
         "andrewhoule/silverstripe-photogallery": "dev-master",
         "gdmedia/silverstripe-socialnetwork-links": "dev-master",
         "silverstripe/blog": "dev-master",
-        "silverstripe/comments": "*"
+        "silverstripe/comments": "*",
+        "silverstripe/spamprotection": "dev-master",
+        "silverstripe/mathspamprotection": "dev-master",
+        "burnbright/silverstripe-facebook-likebox": "dev-master"
     },
     "extra": {
         "installer-name": "silverstripe-gdm-express"
