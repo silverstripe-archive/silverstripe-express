@@ -14,4 +14,44 @@ class PageUtilities extends DataExtension {
         return $result;
     }
 
+    public function GetHasSide($side) {
+        $widgetArea = null;
+        if ($this->owner->hasExtension("WidgetPage")) {
+            if (strtolower($side) == "right") {
+                $widgetArea = $this->owner->WidgetArea("RightSideBar");
+            } else if (strtolower($side) == "left") {
+                $widgetArea = $this->owner->WidgetArea("LeftSideBar");
+            }
+        }
+//        Main menuclass="debug"> "$widgetArea ' . $side . ' exists "' . PHP_EOL . print_r($widgetArea && $widgetArea->exists() ? "1" : "0", true) . PHP_EOL . '</pre>';
+        return $widgetArea && $widgetArea->exists();
+    }
+
+    public function GetLeftCssClass() {
+        $cssClass = "side left";
+        if ($this->GetHasSide("right")) {
+            $cssClass .= " has-right";
+        }
+        return $cssClass;
+    }
+
+    public function GetCenterCssClass() {
+        $cssClass = "center";
+        if ($this->GetHasSide("right")) {
+            $cssClass .= " has-right";
+        }
+        if ($this->GetHasSide("left")) {
+            $cssClass .= " has-left";
+        }
+        return $cssClass;
+    }
+
+    public function GetRightCssClass() {
+        $cssClass = "side right";
+        if ($this->GetHasSide("left")) {
+            $cssClass .= " has-left";
+        }
+        return $cssClass;
+    }
+
 }
