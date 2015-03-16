@@ -42,7 +42,7 @@ class CustomSiteConfig extends DataExtension {
         $fields->addFieldToTab('Root.Main', $mobileLogoField);
         $fields->addFieldToTab('Root.Main', $this->getMobileLogoOffSetField());
 
-    
+
         //Footer
         $fields->addFieldToTab('Root.Footer', $footerLogoField = new UploadField('FooterLogo', 'Footer logo, to appear in the bottom right.'));
         $footerLogoField->setAllowedFileCategories('image');
@@ -68,7 +68,7 @@ class CustomSiteConfig extends DataExtension {
 
     public function createTwoColumnField($id, $label, $field1, $field2) {
         $twoColumnField = new CompositeField(
-                new LiteralField($id, '
+                new LiteralField($id . '-wrap', '
 <div id="' . $id . '-wrap" class="field fieldgroup">
     <label class="left" for="HeaderLogoOffsetLarge">' . $label . '</label>
     <div class="middleColumn">
@@ -87,6 +87,7 @@ class CustomSiteConfig extends DataExtension {
 ')
         );
         $twoColumnField->addExtraClass('field');
+        $twoColumnField->setName($id);
         return $twoColumnField;
     }
 
