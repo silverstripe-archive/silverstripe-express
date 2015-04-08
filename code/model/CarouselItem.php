@@ -5,7 +5,8 @@ class CarouselItem extends DataObject {
     static $db             = array(
         'Title'    => 'Varchar(255)',
         'Caption'  => 'Text',
-        'Archived' => 'Boolean'
+        'Archived' => 'Boolean',
+        'SortID'   => 'Int'
     );
     static $has_one        = array(
         'Parent' => 'ExpressHomePage',
