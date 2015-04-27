@@ -154,7 +154,7 @@ class ExpressSiteTree_Controller extends Extension {
         $abstheme   = $absbase . $theme;
         $absproject = $absbase . $project;
         $scripts    = array("/javascript/$name.js", "/js/$name.js");
-        if (Director::isDev()) {
+        if (!Director::isDev()) {
             $scripts = array_merge(array("/javascript/$name.min.js", "/js/$name.min.js"), $scripts);
         }
         foreach ($scripts as $script) {
