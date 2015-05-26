@@ -29,10 +29,18 @@ class ExpressHomePage extends Page {
         $fields    = parent::getCMSFields();
         // Main Content tab
         // Carousel tab
-        $carouselItemsGrid = new GridField(
-                'CarouselItems', 'Carousel', $this->CarouselItems()->sort('Archived'), GridFieldConfig_RelationEditor::create()
-        );
-        $carouselItemsGrid->setModelClass('CarouselItem');
+         $carouselItemsGrid = null;
+        // Manay to many relations can only be established if we have an id. So put a place holder instead of a grid if this is a new object.
+        if ($this->ID == 0) {
+                   $carouselItemsGrid = TextField::create("CarouselItems", "Carousel Items")->setDisabled(true)->setValue("Page must be saved once before adding Carousel Items.");
+        } else {
+            $carouselItemsGrid                = new GridField(
+                    'CarouselItems', 'Carousel', $this->CarouselItems()->sort('Archived'), GridFieldConfig_RelationEditor::create()
+            );
+            $carouselItemsGridUploadComponent = new GridFieldBulkUpload("Image");
+            $carouselItemsGridUploadComponent->setUfSetup("setFolderName", $this->ImageFolder("carousel"));
+            $carouselItemsGrid->setModelClass('CarouselItem')->getConfig()->addComponent($carouselItemsGridUploadComponent)->addComponent(new GridFieldOrderableRows("SortID"));
+        }
         $fields->addFieldToTab('Root.Carousel', $carouselItemsGrid);
         // Links
         $fields->addFieldToTab('Root.Links', new TreeDropdownField('LearnMorePageID', 'Page to link the "Learn More" button to:', 'SiteTree'));

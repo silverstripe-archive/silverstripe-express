@@ -54,4 +54,11 @@ class PageUtilities extends DataExtension {
         return $cssClass;
     }
 
+    public function ImageFolder($subfolder = null) {
+        $name = preg_replace('/[^a-z0-9]/i', "-", $this->owner->MenuTitle);
+        $name = preg_replace('/' . preg_quote("-") . '[' . preg_quote("-") . ']*/', "-", $name);
+        $name = trim($name, "-");
+        return strtolower($name) . ($subfolder ? "/" . rtrim($subfolder, "/\\") : "");
+    }
+
 }
