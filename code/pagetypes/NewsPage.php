@@ -4,7 +4,7 @@ class NewsPage extends Page {
 
     static $default_parent = 'NewsHolderPage';
     static $can_be_root    = false;
-    static $icon           = "silverstripe-gdm-express/assests/images/sitetree_images/news.png";
+    static $icon           = "silverstripe-gdm-express/assets/images/sitetree_images/news.png";
     static $db             = array(
         'Date'     => 'SS_Datetime',
         'Abstract' => 'Text',

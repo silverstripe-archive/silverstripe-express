@@ -2,8 +2,8 @@
 
 class ContactUsPage extends UserDefinedForm {
 
-    static $icon       = "silverstripe-gdm-express/assests/images/sitetree_images/contact.png";
-    public $pageIcon   = "silverstripe-gdm-express/assests/images/sitetree_images/contact.png";
+    static $icon       = "silverstripe-gdm-express/assets/images/sitetree_images/contact.png";
+    public $pageIcon   = "silverstripe-gdm-express/assets/images/sitetree_images/contact.png";
     private static $db = array(
         'MapEmbedHTML' => 'HTMLText'
     );

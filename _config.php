@@ -1,6 +1,6 @@
 <?php
 
-LeftAndMain::require_css('silverstripe-gdm-express/assests/css/custom.css');
+LeftAndMain::require_css('silverstripe-gdm-express/assets/css/custom.css');
 
 SiteTree::add_extension('ExpressSiteTree');
 ContentController::add_extension('ExpressSiteTree_Controller');

@@ -2,8 +2,8 @@
 
 class ExpressHomePage extends Page {
 
-    static $icon     = "silverstripe-gdm-express/assests/images/sitetree_images/home.png";
-    public $pageIcon = "silverstripe-gdm-express/assests/images/sitetree_images/home.png";
+    static $icon     = "silverstripe-gdm-express/assets/images/sitetree_images/home.png";
+    public $pageIcon = "silverstripe-gdm-express/assets/images/sitetree_images/home.png";
     static $db       = array(
         'FeatureOneTitle'      => 'Varchar(255)',
         'FeatureOneCategory'   => "Enum('comments, group, news', 'comments')",
