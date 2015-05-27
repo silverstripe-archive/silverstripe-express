@@ -55,10 +55,36 @@ class PageUtilities extends DataExtension {
     }
 
     public function ImageFolder($subfolder = null) {
-        $name = preg_replace('/[^a-z0-9]/i', "-", $this->owner->MenuTitle);
-        $name = preg_replace('/' . preg_quote("-") . '[' . preg_quote("-") . ']*/', "-", $name);
-        $name = trim($name, "-");
-        return strtolower($name) . ($subfolder ? "/" . rtrim($subfolder, "/\\") : "");
+        return $this->CleanStringForFolder($this->owner->MenuTitle) . ($subfolder ? "/" . $this->CleanStringForFolder($subfolder) : ""); //strtolower($name) . ($subfolder ? "/" . rtrim($subfolder, "/\\") : "");
+    }
+
+    private function CleanStringForFolder($string) {
+
+        return
+                // Make folder always lower case
+                strtolower(
+                // Remove - and / from ends
+                trim(
+                        // Remove duplicate -
+                        preg_replace('/' . preg_quote("-") . '[' . preg_quote("-") . ']*/', "-",
+                                // Replace and non alphanumeric characters with a -
+                                preg_replace('/[^a-z0-9]/i', "-", $string)),
+                        // 2nd arg to firt trim
+                        "-/"));
+    }
+
+    function GetAllChildrenOfType($objectType) {
+        $result = new ArrayList();
+
+        foreach ($this->owner->Children() as $child) {
+            if ($child->ClassName == $objectType) {
+                $result->add($child);
+            }
+            if ($child->hasMethod('GetAllChildrenOfType')) {
+                $result->merge($child->GetAllChildrenOfType($objectType));
+            }
+        }
+        return $result;
     }
 
 }
