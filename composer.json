@@ -31,7 +31,8 @@
         "unclecheese/betterbuttons": "1.2.*",
         "unclecheese/eventcalendar": "dev-master",
         "zirak/widget-pages-extension": "*",
-        "colymba/gridfield-bulk-editing-tools": "*"
+        "colymba/gridfield-bulk-editing-tools": "*",
+        "sheadawson/silverstripe-linkable": "*"
     },
     "extra": {
         "installer-name": "silverstripe-gdm-express"

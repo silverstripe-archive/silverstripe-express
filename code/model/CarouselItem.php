@@ -11,7 +11,7 @@ class CarouselItem extends DataObject {
     static $has_one        = array(
         'Parent' => 'ExpressHomePage',
         'Image'  => 'Image',
-        'Link'   => 'SiteTree'
+        'Link'   => 'Link'
     );
     static $summary_fields = array(
         'ImageThumb'       => 'Image',
@@ -24,7 +24,8 @@ class CarouselItem extends DataObject {
     function getCMSFields() {
         $fields = parent::getCMSFields();
         $fields->removeByName('Archived');
-        $fields->addFieldToTab('Root.Main', new TreeDropdownField('LinkID', 'Link', 'SiteTree'));
+//        $fields->addFieldToTab('Root.Main', new TreeDropdownField('LinkID', 'Link', 'SiteTree'));
+        $fields->addFieldToTab('Root.Main', LinkField::create('LinkID', 'Link'));
         $fields->addFieldToTab('Root.Main', $group  = new CompositeField(
                 $label  = new LabelField("LabelArchive", "Archive this carousel item?"), new CheckboxField('Archived', '')
         ));
