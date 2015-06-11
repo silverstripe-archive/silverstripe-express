@@ -9,7 +9,7 @@ class CarouselItem extends DataObject {
         'SortID'   => 'Int'
     );
     static $has_one        = array(
-        'Parent' => 'ExpressHomePage',
+        'Parent' => 'Page',
         'Image'  => 'Image',
         'Link'   => 'Link'
     );
