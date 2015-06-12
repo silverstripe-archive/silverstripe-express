@@ -23,7 +23,6 @@ class PageUtilities extends DataExtension {
                 $widgetArea = $this->owner->WidgetArea("LeftSideBar");
             }
         }
-//        Main menuclass="debug"> "$widgetArea ' . $side . ' exists "' . PHP_EOL . print_r($widgetArea && $widgetArea->exists() ? "1" : "0", true) . PHP_EOL . '</pre>';
         return $widgetArea && $widgetArea->exists();
     }
 
@@ -85,6 +84,14 @@ class PageUtilities extends DataExtension {
             }
         }
         return $result;
+    }
+
+    function GetFirstParentOfType($objectType) {
+        $parent = $this->owner->Parent();
+        while ($parent->ClassName !== $objectType && $parent->ParentID !== 0) {
+            $parent = $parent->Parent();
+        }
+        return $parent->ClassName === $objectType ? $parent : false;
     }
 
 }
