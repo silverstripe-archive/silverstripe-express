@@ -2,6 +2,9 @@
 
 class PageUtilities extends DataExtension {
 
+    private $forceLeft  = false;
+    private $forceRight = false;
+
     // Get name - will be wrapped in anchor HTML if $linkl isset
     public function GetNamedLink($name, $link, $target = null) {
         $result = '';
@@ -14,16 +17,30 @@ class PageUtilities extends DataExtension {
         return $result;
     }
 
+    public function setHasLeft($value) {
+        $this->forceLeft = $value;
+    }
+
+    public function setHasRight($value) {
+        $this->forceRight = $value;
+    }
+
     public function GetHasSide($side) {
         $widgetArea = null;
-        if ($this->owner->hasExtension("WidgetPage")) {
+        $result     = false;
+        if ($this->forceLeft && (strtolower($side) == "left")) {
+            $result = true;
+        } else if ($this->forceRight && (strtolower($side) == "right")) {
+            $result = true;
+        } else if ($this->owner->hasExtension("WidgetPage")) {
             if (strtolower($side) == "right") {
                 $widgetArea = $this->owner->WidgetArea("RightSideBar");
             } else if (strtolower($side) == "left") {
                 $widgetArea = $this->owner->WidgetArea("LeftSideBar");
             }
+            $result = $widgetArea && $widgetArea->exists();
         }
-        return $widgetArea && $widgetArea->exists();
+        return $result;
     }
 
     public function GetLeftCssClass() {
@@ -88,7 +105,7 @@ class PageUtilities extends DataExtension {
 
     function GetFirstParentOfType($objectType) {
         $parent = $this->owner->Parent();
-        while ($parent->ClassName !== $objectType && $parent->ParentID !== 0) {
+        while ($parent->ClassName !== $objectType && $parent->ParentID !== 0 && $parent->exists()) {
             $parent = $parent->Parent();
         }
         return $parent->ClassName === $objectType ? $parent : false;
