@@ -147,7 +147,8 @@ class ExpressSiteTree_Controller extends Extension {
         return $result;
     }
 
-    public function themedJavascript($name, $module = null) {
+    public function getThemeJavascsriptPath($name, $module = null) {
+        $result     = false;
         $theme      = SSViewer::get_theme_folder();
         $project    = project();
         $absbase    = BASE_PATH . DIRECTORY_SEPARATOR;
@@ -159,18 +160,47 @@ class ExpressSiteTree_Controller extends Extension {
         }
         foreach ($scripts as $script) {
             if (file_exists($absproject . $script)) {
-                Requirements::javascript($project . $script);
+                $result = $project . $script;
                 break;
             } elseif ($module && file_exists($abstheme . '_' . $module . $script)) {
-                Requirements::javascript($theme . '_' . $module . $script);
+                $result = $theme . '_' . $module . $script;
                 break;
             } elseif (file_exists($abstheme . $script)) {
-                Requirements::javascript($theme . $script);
+                $result = $theme . $script;
                 break;
             } elseif ($module) {
-                Requirements::javascript($module . $script);
+                $result = $module . $script;
                 break;
             }
+        }
+        return $result;
+    }
+
+    public function getThemeCSSPath($name, $module = null, $media = null) {
+        $result     = false;
+        $theme      = SSViewer::get_theme_folder();
+        $project    = project();
+        $absbase    = BASE_PATH . DIRECTORY_SEPARATOR;
+        $abstheme   = $absbase . $theme;
+        $absproject = $absbase . $project;
+        $css        = "/css/$name.css";
+
+        if (file_exists($absproject . $css)) {
+            $result = $project . $css;
+        } elseif ($module && file_exists($abstheme . '_' . $module . $css)) {
+            $result = $theme . '_' . $module . $css;
+        } elseif (file_exists($abstheme . $css)) {
+            $result = $theme . $css;
+        } elseif ($module) {
+            $result = $module . $css;
+        }
+        return $result;
+    }
+
+    public function themedJavascript($name, $module = null) {
+        $file   = $this->getThemeJavascsriptPath($name, $module = null);
+        if ($file) {
+            Requirements::javascript($file);
         }
     }
 
