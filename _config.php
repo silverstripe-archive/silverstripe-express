@@ -40,8 +40,8 @@ if (class_exists('Translatable')) {
     SiteConfig::add_extension('Translatable');
 }
 
-Config::inst()->update('i18n', 'common_locales', array("mi_NZ" => array(0 => 'Māori')));
-Config::inst()->update('i18n', 'common_languages', array("mi" => array(0 => 'Māori')));
+Config::inst()->update('i18n', 'common_locales', array("mi_NZ" => array(0 => 'MÄ�ori')));
+Config::inst()->update('i18n', 'common_languages', array("mi" => array(0 => 'MÄ�ori')));
 
 Page::add_extension('PageUtilities');
 
