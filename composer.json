@@ -22,7 +22,6 @@
         "silverstripe/blog": "dev-master",
         "silverstripe/comments": "*",
         "silverstripe/iframe": "*",
-        "silverstripe/mathspamprotection": "*",
         "silverstripe/newsletter": "*",
         "silverstripe/spamprotection": "*",
         "silverstripe/translatable": "*",
