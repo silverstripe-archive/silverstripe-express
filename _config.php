@@ -2,10 +2,6 @@
 
 LeftAndMain::require_css('silverstripe-gdm-express/assets/css/custom.css');
 
-SiteTree::add_extension('ExpressSiteTree');
-ContentController::add_extension('ExpressSiteTree_Controller');
-SiteConfig::add_extension('CustomSiteConfig');
-
 // Don't allow h1 in the editor
 HtmlEditorConfig::get('cms')->setOption('theme_advanced_blockformats', 'p,pre,address,h2,h3,h4,h5,h6');
 // Add in start and type attributes for ol
@@ -31,7 +27,7 @@ if (class_exists('Translatable')) {
     Translatable::set_default_locale('en_NZ');
     Translatable::set_allowed_locales(array(
         'en_NZ', // NZ English
-        'mi_NZ', // Maori
+        'mi_NZ', // Māori
         'zh_cmn', // Chinese (Mandarin)
         'en_GB' // Needed to be able to create users in the CMS
     ));
@@ -40,8 +36,7 @@ if (class_exists('Translatable')) {
     SiteConfig::add_extension('Translatable');
 }
 
-Config::inst()->update('i18n', 'common_locales', array("mi_NZ" => array(0 => 'MÄ�ori')));
-Config::inst()->update('i18n', 'common_languages', array("mi" => array(0 => 'MÄ�ori')));
+Config::inst()->update('i18n', 'common_locales', array("mi_NZ" => array(0 => 'Māori')));
+Config::inst()->update('i18n', 'common_languages', array("mi" => array(0 => 'Māori')));
 
-Page::add_extension('PageUtilities');
 

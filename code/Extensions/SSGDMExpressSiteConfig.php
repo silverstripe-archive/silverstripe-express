@@ -3,7 +3,7 @@
 /**
  * Adds new global settings.
  */
-class CustomSiteConfig extends DataExtension {
+class SSGDMExpressSiteConfig extends DataExtension {
 
     static $db        = array(
         'GACode'                 => 'Varchar(16)',

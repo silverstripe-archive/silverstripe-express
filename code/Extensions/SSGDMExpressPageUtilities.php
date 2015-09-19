@@ -1,6 +1,6 @@
 <?php
 
-class PageUtilities extends DataExtension {
+class SSGDMExpressPageUtilities extends DataExtension {
 
     private $forceLeft  = false;
     private $forceRight = false;
@@ -84,9 +84,9 @@ class PageUtilities extends DataExtension {
                         // Remove duplicate -
                         preg_replace('/' . preg_quote("-") . '[' . preg_quote("-") . ']*/', "-",
                                 // Replace and non alphanumeric characters with a -
-                                preg_replace('/[^a-z0-9]/i', "-", $string)),
+                                                                              preg_replace('/[^a-z0-9]/i', "-", $string)),
                         // 2nd arg to firt trim
-                        "-/"));
+                                                                                           "-/"));
     }
 
     function GetAllChildrenOfType($objectType) {

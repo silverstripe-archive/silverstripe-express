@@ -26,13 +26,13 @@ class ExpressHomePage extends Page {
     );
 
     function getCMSFields() {
-        $fields    = parent::getCMSFields();
+        $fields            = parent::getCMSFields();
         // Main Content tab
         // Carousel tab
-         $carouselItemsGrid = null;
+        $carouselItemsGrid = null;
         // Manay to many relations can only be established if we have an id. So put a place holder instead of a grid if this is a new object.
         if ($this->ID == 0) {
-                   $carouselItemsGrid = TextField::create("CarouselItems", "Carousel Items")->setDisabled(true)->setValue("Page must be saved once before adding Carousel Items.");
+            $carouselItemsGrid = TextField::create("CarouselItems", "Carousel Items")->setDisabled(true)->setValue("Page must be saved once before adding Carousel Items.");
         } else {
             $carouselItemsGrid                = new GridField(
                     'CarouselItems', 'Carousel', $this->CarouselItems()->sort('Archived'), GridFieldConfig_RelationEditor::create()
@@ -46,7 +46,7 @@ class ExpressHomePage extends Page {
         $fields->addFieldToTab('Root.Links', new TreeDropdownField('LearnMorePageID', 'Page to link the "Learn More" button to:', 'SiteTree'));
         $fields->addFieldToTab('Root.Links', new TextField('LearnMoreButtonText', 'Text to display on the "Learn More" button:', 'SiteTree'));
 
-        $quickLinksGrid = new GridField(
+        $quickLinksGrid       = new GridField(
                 'Quicklinks', 'Quicklinks', $this->Quicklinks(), GridFieldConfig_RelationEditor::create());
         $quickLinksGrid->setModelClass('Quicklink');
         $quickLinksFieldGroup = FieldGroup::create($quickLinksGrid)->setTitle('Quick Links');

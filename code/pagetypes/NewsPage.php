@@ -44,5 +44,5 @@ class NewsPage extends Page {
 }
 
 class NewsPage_Controller extends Page_Controller {
-
+    
 }
