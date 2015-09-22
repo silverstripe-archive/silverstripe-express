@@ -25,7 +25,7 @@
         "silverstripe/newsletter": "^0.6",
         "silverstripe/spamprotection": "^2.0",
         "silverstripe/translatable": "^2.0",
-        "silverstripe/userforms": "^3.0.",
+        "silverstripe/userforms": "^2.0.",
         "silverstripe/versionedfiles": "^1.0",
         "unclecheese/betterbuttons": "^1.2",
         "unclecheese/eventcalendar": "^1.0",
