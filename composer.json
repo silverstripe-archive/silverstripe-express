@@ -22,7 +22,7 @@
         "silverstripe/blog": "^2.0",
         "silverstripe/comments": "^2.0",
         "silverstripe/iframe": "^1.0",
-        "silverstripe/newsletter": "^0.6",
+        "silverstripe/newsletter": "dev-master",
         "silverstripe/spamprotection": "^2.0",
         "silverstripe/translatable": "^2.0",
         "silverstripe/userforms": "^2.0.",
