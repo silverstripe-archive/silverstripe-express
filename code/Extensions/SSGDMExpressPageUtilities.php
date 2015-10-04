@@ -96,7 +96,6 @@ class SSGDMExpressPageUtilities extends DataExtension {
         $children = $all ? $this->owner->AllChildren() : $this->owner->Children();
         foreach ($children as $child) {
             if (!is_null($limit) && $result->count() >= $limit) {
-                Debug::message($result->count() . " >= " . $limit);
                 break;
             }
             if ($child->ClassName == $objectType) {
