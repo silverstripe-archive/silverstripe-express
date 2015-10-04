@@ -89,10 +89,10 @@ class SSGDMExpressPageUtilities extends DataExtension {
                                                                                            "-/"));
     }
 
-    function GetAllChildrenOfType($objectType) {
-        $result = new ArrayList();
-
-        foreach ($this->owner->Children() as $child) {
+    function FindChildrenOfType($objectType, $all = false) {
+        $result   = new ArrayList();
+        $children = $all ? $this->owner->AllChildren() : $this->owner->Children();
+        foreach ($children as $child) {
             if ($child->ClassName == $objectType) {
                 $result->add($child);
             }
@@ -101,6 +101,14 @@ class SSGDMExpressPageUtilities extends DataExtension {
             }
         }
         return $result;
+    }
+
+    function GetAllChildrenOfType($objectType) {
+        return $this->FindChildrenOfType($objectType, true);
+    }
+
+    function GetChildrenOfType($objectType) {
+        return $this->FindChildrenOfType($objectType, false);
     }
 
     function GetFirstParentOfType($objectType) {
