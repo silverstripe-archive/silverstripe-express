@@ -71,7 +71,7 @@ class SSGDMExpressPageUtilities extends DataExtension {
     }
 
     public function ImageFolder($subfolder = null) {
-        return $this->CleanStringForFolder($this->owner->MenuTitle) . ($subfolder ? "/" . $this->CleanStringForFolder($subfolder) : ""); //strtolower($name) . ($subfolder ? "/" . rtrim($subfolder, "/\\") : "");
+        return $this->CleanStringForFolder($this->owner->MenuTitle) . ($subfolder ? "/" . $this->CleanStringForFolder($subfolder) : ""); 
     }
 
     private function CleanStringForFolder($string) {
@@ -79,36 +79,42 @@ class SSGDMExpressPageUtilities extends DataExtension {
         return
                 // Make folder always lower case
                 strtolower(
-                // Remove - and / from ends
-                trim(
-                        // Remove duplicate -
-                        preg_replace('/' . preg_quote("-") . '[' . preg_quote("-") . ']*/', "-",
-                                // Replace and non alphanumeric characters with a -
-                                                                              preg_replace('/[^a-z0-9]/i', "-", $string)),
-                        // 2nd arg to firt trim
-                                                                                           "-/"));
+                    // Remove - and / from ends
+                    trim(
+                            // Remove duplicate -
+                            preg_replace('/' . preg_quote("-") . '[' . preg_quote("-") . ']*/', "-",
+                                // Replace any non alphanumeric characters with a -
+                                preg_replace('/[^a-z0-9]/i', "-", $string)
+                            ),
+                        // 2nd arg to first trim
+                    "-/")
+                );
     }
 
-    function FindChildrenOfType($objectType, $all = false) {
+    function FindChildrenOfType($objectType, $all = false, $limit = null) {
         $result   = new ArrayList();
         $children = $all ? $this->owner->AllChildren() : $this->owner->Children();
         foreach ($children as $child) {
+            if (!is_null($limit) && $result->count() >= $limit) {
+                Debug::message($result->count() . " >= " . $limit);
+                break;
+            }
             if ($child->ClassName == $objectType) {
                 $result->add($child);
             }
             if ($child->hasMethod('GetAllChildrenOfType')) {
-                $result->merge($child->GetAllChildrenOfType($objectType));
+                $result->merge($child->FindChildrenOfType($objectType, $all, $limit - $result->count()));
             }
         }
         return $result;
     }
 
-    function GetAllChildrenOfType($objectType) {
-        return $this->FindChildrenOfType($objectType, true);
+    function GetAllChildrenOfType($objectType, $limit = null) {
+        return $this->FindChildrenOfType($objectType, true, $limit);
     }
 
-    function GetChildrenOfType($objectType) {
-        return $this->FindChildrenOfType($objectType, false);
+    function GetChildrenOfType($objectType, $limit = null) {
+        return $this->FindChildrenOfType($objectType, false, $limit);
     }
 
     function GetFirstParentOfType($objectType) {
