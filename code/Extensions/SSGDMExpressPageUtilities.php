@@ -101,8 +101,8 @@ class SSGDMExpressPageUtilities extends DataExtension {
             if ($child->ClassName == $objectType) {
                 $result->add($child);
             }
-            if ($child->hasMethod('GetAllChildrenOfType')) {
-                $result->merge($child->FindChildrenOfType($objectType, $all, $limit - $result->count()));
+            if ($child->hasMethod('FindChildrenOfType')) {
+                $result->merge($child->FindChildrenOfType($objectType, $all, is_null($limit) ? null : $limit - $result->count()));
             }
         }
         return $result;
