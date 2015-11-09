@@ -1,20 +1,8 @@
 ---
 Name: Silverstripe GDM Express
 ---
-SiteTree:
-  extensions:
-    - SSGDMExpressSiteTree
-ContentController:
-  extensions:
-    - SSGDMExpressSiteTree_Controller
 SiteConfig:
   extensions:
     - SSGDMExpressSiteConfig
-Page:
-  extensions:
-    - SSGDMExpressPageUtilities
-    - SSGDMExpressViewableData
-ViewableData:
-  extensions:
-    - SSGDMExpressViewableData
+
 
