@@ -5,7 +5,7 @@
     "require": {
         "silverstripe/cms": "^3.1",
         "composer/installers": "*",
-        "gdmedia/silverstripe-gdm-extensions",
+        "gdmedia/silverstripe-gdm-extensions": "^0.1",
         "andrewhoule/silverstripe-photogallery": "dev-master",
         "burnbright/silverstripe-facebook-likebox": "dev-master",
         "gdmedia/silverstripe-frontend-admin": "*",
