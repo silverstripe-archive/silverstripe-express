@@ -1,10 +1,11 @@
 <?php
 
-class ExpressHomePage extends Page {
+class ExpressHomePage extends Page
+{
 
-    static $icon     = "silverstripe-gdm-express/assets/images/sitetree_images/home.png";
+    public static $icon     = "silverstripe-gdm-express/assets/images/sitetree_images/home.png";
     public $pageIcon = "silverstripe-gdm-express/assets/images/sitetree_images/home.png";
-    static $db       = array(
+    public static $db       = array(
         'FeatureOneTitle'      => 'Varchar(255)',
         'FeatureOneCategory'   => "Enum('comments, group, news', 'comments')",
         'FeatureOneContent'    => 'HTMLText',
@@ -15,17 +16,18 @@ class ExpressHomePage extends Page {
         'FeatureTwoButtonText' => 'Varchar(255)',
         'LearnMoreButtonText'  => 'Varchar(255)'
     );
-    static $has_one  = array(
+    public static $has_one  = array(
         'LearnMorePage'  => 'SiteTree',
         'FeatureOneLink' => 'SiteTree',
         'FeatureTwoLink' => 'SiteTree'
     );
-    static $has_many = array(
+    public static $has_many = array(
         'CarouselItems' => 'CarouselItem',
         'Quicklinks'    => 'Quicklink'
     );
 
-    function getCMSFields() {
+    public function getCMSFields()
+    {
         $fields            = parent::getCMSFields();
         // Main Content tab
         // Carousel tab
@@ -79,34 +81,38 @@ class ExpressHomePage extends Page {
         return $fields;
     }
 
-    function GetCategoryIcon($category) {
+    public function GetCategoryIcon($category)
+    {
         $result = "";
         if ($category == "comments") {
             $result = "glyphicon glyphicon-comment";
-        } else if ($category == "group") {
+        } elseif ($category == "group") {
             $result = "glyphicon glyphicon-user";
-        } else if ($category == "news") {
+        } elseif ($category == "news") {
             $result = "glyphicon glyphicon-bullhorn";
         }
         return $result;
     }
 
-    function GetFeatureOneIcon() {
+    public function GetFeatureOneIcon()
+    {
         return $this->GetCategoryIcon($this->FeatureOneCategory);
     }
 
-    function GetFeatureTwoIcon() {
+    public function GetFeatureTwoIcon()
+    {
         return $this->GetCategoryIcon($this->FeatureTwoCategory);
     }
-
 }
 
-class ExpressHomePage_Controller extends Page_Controller {
+class ExpressHomePage_Controller extends Page_Controller
+{
 
     /**
      * @param int $amount The amount of items to provide.
      */
-    public function getNewsItems($amount = 2) {
+    public function getNewsItems($amount = 2)
+    {
         $newsHolder = NewsHolder::get_one('NewsHolder');
         if ($newsHolder) {
             $controller = new NewsHolder_Controller($newsHolder);
@@ -114,8 +120,8 @@ class ExpressHomePage_Controller extends Page_Controller {
         }
     }
 
-    public function getNews() {
+    public function getNews()
+    {
         return DataObject::get_one("NewsHolder");
     }
-
 }
