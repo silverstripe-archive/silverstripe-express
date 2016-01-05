@@ -1,54 +1,62 @@
 <?php
 
-class NewsHolder extends Page {
+class NewsHolder extends Page
+{
 
-    static $allowed_children = array('NewsPage');
-    static $default_child    = 'NewsPage';
-    static $icon             = "silverstripe-gdm-express/assets/images/sitetree_images/news_listing.png";
+    public static $allowed_children = array('NewsPage');
+    public static $default_child    = 'NewsPage';
+    public static $icon             = "silverstripe-gdm-express/assets/images/sitetree_images/news_listing.png";
     public $pageIcon         = "silverstripe-gdm-express/assets/images/sitetree_images/news_listing.png";
 
-    public function MenuChildren() {
+    public function MenuChildren()
+    {
         return parent::MenuChildren()->exclude('ClassName', 'NewsPage');
     }
 
-    public function getCategories() {
+    public function getCategories()
+    {
         return NewsCategory::get()->sort('Title', 'DESC');
     }
 
-    public function getDefaultRSSLink() {
+    public function getDefaultRSSLink()
+    {
         return $this->Link('rss');
     }
-
 }
 
-class NewsHolder_Controller extends Page_Controller {
+class NewsHolder_Controller extends Page_Controller
+{
 
-    public function init() {
+    public function init()
+    {
         parent::init();
 
         RSSFeed::linkToFeed($this->Link() . 'rss', SiteConfig::current_site_config()->Title . ' news');
     }
 
-    public function getNewsItems($pageSize = 10) {
+    public function getNewsItems($pageSize = 10)
+    {
         $items    = DataObject::get('NewsPage', "ParentID = $this->ID")->sort('Date', 'DESC');
         $category = $this->getCategory();
-        if ($category)
+        if ($category) {
             $items    = $items->filter('CategoryID', $category->ID);
+        }
         $list     = new PaginatedList($items, $this->request);
         $list->setPageLength($pageSize);
         return $list;
     }
 
-    public function getCategory() {
+    public function getCategory()
+    {
         $categoryID = $this->request->getVar('category');
         if (!is_null($categoryID)) {
             return NewsCategory::get_by_id('NewsCategory', $categoryID);
         }
     }
 
-    public function rss() {
+    public function rss()
+    {
         $rss = new RSSFeed($this->Children(), $this->Link, SiteConfig::current_site_config()->Title . ' news');
         return $rss->outputToBrowser();
     }
-
 }

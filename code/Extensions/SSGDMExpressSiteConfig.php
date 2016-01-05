@@ -3,9 +3,10 @@
 /**
  * Adds new global settings.
  */
-class SSGDMExpressSiteConfig extends DataExtension {
+class SSGDMExpressSiteConfig extends DataExtension
+{
 
-    static $db        = array(
+    public static $db        = array(
         'GACode'                 => 'Varchar(16)',
         'FooterLogoLink'         => 'Varchar(255)',
         'FooterLogoDescription'  => 'Varchar(255)',
@@ -16,16 +17,17 @@ class SSGDMExpressSiteConfig extends DataExtension {
         'HeaderLogoOffsetSmallX' => 'Int',
         'ShowTitleInHeader'      => 'Boolean',
     );
-    static $has_one   = array(
+    public static $has_one   = array(
         'Logo'       => 'Image',
         'LogoMobile' => 'Image',
         'FooterLogo' => 'Image'
     );
-    static $many_many = array(
+    public static $many_many = array(
         'FooterLinks' => 'SiteTree',
     );
 
-    function updateCMSFields(FieldList $fields) {
+    public function updateCMSFields(FieldList $fields)
+    {
         // Main
         $fields->addFieldToTab('Root.Main', $gaCode          = new TextField('GACode', 'Google Analytics account'));
         $gaCode->setRightTitle('Account number to be used all across the site (in the format <strong>UA-XXXXX-X</strong>)');
@@ -54,19 +56,22 @@ class SSGDMExpressSiteConfig extends DataExtension {
         $fields->addFieldToTab('Root.Footer', new TextField('Copyright', 'Copyright'));
     }
 
-    private function getLogoOffSetField() {
+    private function getLogoOffSetField()
+    {
         $headerLogoOffsetYField = new NumericField('HeaderLogoOffsetY', 'Top Offset');
         $headerLogoOffsetXField = new NumericField('HeaderLogoOffsetX', 'Left Offset');
         return $this->createTwoColumnField('logoOffSetField', "Logo offset", $headerLogoOffsetYField, $headerLogoOffsetXField);
     }
 
-    private function getMobileLogoOffSetField() {
+    private function getMobileLogoOffSetField()
+    {
         $headerLogoOffsetSmallYField = new NumericField('HeaderLogoOffsetSmallY', 'Top Offset');
         $headerLogoOffsetSmallXField = new NumericField('HeaderLogoOffsetSmallX', 'Left Offset');
         return $this->createTwoColumnField('mobileLogoOffSetField', "Mobile logo offset", $headerLogoOffsetSmallYField, $headerLogoOffsetSmallXField);
     }
 
-    public function createTwoColumnField($id, $label, $field1, $field2) {
+    public function createTwoColumnField($id, $label, $field1, $field2)
+    {
         $twoColumnField = new CompositeField(
                 new LiteralField($id . '-wrap', '
 <div id="' . $id . '-wrap" class="field fieldgroup">
@@ -90,5 +95,4 @@ class SSGDMExpressSiteConfig extends DataExtension {
         $twoColumnField->setName($id);
         return $twoColumnField;
     }
-
 }

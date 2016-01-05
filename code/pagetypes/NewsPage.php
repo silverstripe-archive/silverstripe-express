@@ -1,23 +1,25 @@
 <?php
 
-class NewsPage extends Page {
+class NewsPage extends Page
+{
 
-    static $default_parent = 'NewsHolderPage';
-    static $can_be_root    = false;
-    static $icon           = "silverstripe-gdm-express/assets/images/sitetree_images/news.png";
-    static $db             = array(
+    public static $default_parent = 'NewsHolderPage';
+    public static $can_be_root    = false;
+    public static $icon           = "silverstripe-gdm-express/assets/images/sitetree_images/news.png";
+    public static $db             = array(
         'Date'     => 'SS_Datetime',
         'Abstract' => 'Text',
         'Author'   => 'Varchar(255)'
     );
-    static $has_one        = array(
+    public static $has_one        = array(
         'Category' => 'NewsCategory'
     );
 
     /**
      * Add the default for the Date being the current day.
      */
-    public function populateDefaults() {
+    public function populateDefaults()
+    {
         parent::populateDefaults();
 
         if (!isset($this->Date) || $this->Date === null) {
@@ -25,7 +27,8 @@ class NewsPage extends Page {
         }
     }
 
-    public function getCMSFields() {
+    public function getCMSFields()
+    {
         $fields = parent::getCMSFields();
 
         $fields->addFieldToTab('Root.Main', $dateTimeField = new DatetimeField('Date'), 'Content');
@@ -40,9 +43,8 @@ class NewsPage extends Page {
 
         return $fields;
     }
-
 }
 
-class NewsPage_Controller extends Page_Controller {
-    
+class NewsPage_Controller extends Page_Controller
+{
 }
